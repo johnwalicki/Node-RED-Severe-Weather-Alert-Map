@@ -1,0 +1,1250 @@
+[
+    {
+        "id": "727d366f.1fd3b",
+        "type": "tab",
+        "label": "TWC Severe Weather Alerts",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "a1937a33.e32a88",
+        "type": "http request",
+        "z": "727d366f.1fd3b",
+        "name": "Weather Alert Headlines",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": false,
+        "url": "https://api.weather.com/v3/alerts/headlines?countryCode=US&format=json&language=en-US&apiKey={{apikey}}",
+        "tls": "",
+        "proxy": "",
+        "authType": "",
+        "x": 730,
+        "y": 160,
+        "wires": [
+            [
+                "dcbfe859.e2f748",
+                "13025bab.757784"
+            ]
+        ]
+    },
+    {
+        "id": "59a1840c.76fdac",
+        "type": "inject",
+        "z": "727d366f.1fd3b",
+        "name": "Alert Headlines - US",
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 210,
+        "y": 160,
+        "wires": [
+            [
+                "628c5fe.10653a"
+            ]
+        ]
+    },
+    {
+        "id": "dcbfe859.e2f748",
+        "type": "debug",
+        "z": "727d366f.1fd3b",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 990,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "6c0974c8.9d7b9c",
+        "type": "function",
+        "z": "727d366f.1fd3b",
+        "name": "Next",
+        "func": "var Severe = flow.get(\"SevereAlerts\");\n\nfor( i = 0 ; i < msg.payload.alerts.length ; i++ ) {\n    if( msg.payload.alerts[i].severityCode <= 2 ) {\n        Severe.push(msg.payload.alerts[i]) ;\n    }\n}\nflow.set(\"SevereAlerts\", Severe);\n\nif( msg.payload.metadata.next === null ) {\n    return [null, msg] ;\n} else {\n    // Get the next chunk of Alerts\n    msg.url = 'https://api.weather.com/v3/alerts/headlines?countryCode=US&format=json&language=en-US&apiKey='+msg.apikey;\n    msg.url = msg.url + \"&next=\" + msg.payload.metadata.next ;\n\n    return [msg, null];\n}",
+        "outputs": 2,
+        "noerr": 0,
+        "x": 390,
+        "y": 260,
+        "wires": [
+            [
+                "7bdcf8d3.df4518"
+            ],
+            [
+                "4f00bc25.68816c"
+            ]
+        ]
+    },
+    {
+        "id": "7bdcf8d3.df4518",
+        "type": "http request",
+        "z": "727d366f.1fd3b",
+        "name": "Next Block of Alerts",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": false,
+        "url": "",
+        "tls": "",
+        "proxy": "",
+        "authType": "",
+        "x": 590,
+        "y": 260,
+        "wires": [
+            [
+                "6c0974c8.9d7b9c",
+                "b11caf06.e3de58"
+            ]
+        ]
+    },
+    {
+        "id": "b11caf06.e3de58",
+        "type": "debug",
+        "z": "727d366f.1fd3b",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 810,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "91f7a1b8.a4b008",
+        "type": "comment",
+        "z": "727d366f.1fd3b",
+        "name": "All US Weather Alerts",
+        "info": "",
+        "x": 180,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "658dfdaa.d3f004",
+        "type": "http request",
+        "z": "727d366f.1fd3b",
+        "name": "Weather Alert Headlines",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": false,
+        "url": "https://api.weather.com/v3/alerts/headlines?adminDistrictCode={{{admindistrictcode}}}&format=json&language=en-US&apiKey={{{apikey}}}",
+        "tls": "",
+        "proxy": "",
+        "authType": "",
+        "x": 710,
+        "y": 560,
+        "wires": [
+            [
+                "ad2fefb8.49fb2",
+                "a6b2c4aa.a00ba"
+            ]
+        ]
+    },
+    {
+        "id": "3e24c2d8.1c79de",
+        "type": "inject",
+        "z": "727d366f.1fd3b",
+        "name": "Alert Headlines NJ:US",
+        "topic": "",
+        "payload": "NC:US",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 200,
+        "y": 600,
+        "wires": [
+            [
+                "de3ccf91.9c4ac8"
+            ]
+        ]
+    },
+    {
+        "id": "ad2fefb8.49fb2",
+        "type": "debug",
+        "z": "727d366f.1fd3b",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 970,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "de3ccf91.9c4ac8",
+        "type": "change",
+        "z": "727d366f.1fd3b",
+        "name": "",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "SevereAlerts",
+                "pt": "flow"
+            },
+            {
+                "t": "set",
+                "p": "SevereAlerts",
+                "pt": "flow",
+                "to": "[]",
+                "tot": "json"
+            },
+            {
+                "t": "set",
+                "p": "apikey",
+                "pt": "msg",
+                "to": "twcapikey",
+                "tot": "flow"
+            },
+            {
+                "t": "set",
+                "p": "admindistrictcode",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 460,
+        "y": 560,
+        "wires": [
+            [
+                "658dfdaa.d3f004"
+            ]
+        ]
+    },
+    {
+        "id": "4f00bc25.68816c",
+        "type": "change",
+        "z": "727d366f.1fd3b",
+        "name": "All Severe Alerts",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "SevereAlerts",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "SevereAlerts",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 580,
+        "y": 320,
+        "wires": [
+            [
+                "39267c6f.0a02bc",
+                "f72d3d3e.bc3d88"
+            ]
+        ]
+    },
+    {
+        "id": "39267c6f.0a02bc",
+        "type": "debug",
+        "z": "727d366f.1fd3b",
+        "name": "All Severe",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 800,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "628c5fe.10653a",
+        "type": "change",
+        "z": "727d366f.1fd3b",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "apikey",
+                "pt": "msg",
+                "to": "twcapikey",
+                "tot": "flow"
+            },
+            {
+                "t": "delete",
+                "p": "SevereAlerts",
+                "pt": "flow"
+            },
+            {
+                "t": "set",
+                "p": "SevereAlerts",
+                "pt": "flow",
+                "to": "[]",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 460,
+        "y": 160,
+        "wires": [
+            [
+                "a1937a33.e32a88"
+            ]
+        ]
+    },
+    {
+        "id": "a5ecb7d0.c5597",
+        "type": "function",
+        "z": "727d366f.1fd3b",
+        "name": "Next",
+        "func": "if( typeof msg.payload.alerts == 'undefined' ) {\n    // No Severe Alerts for this State / District\n    // Blank the table\n    msg.payload = [];\n    return [null, null, msg] ;\n}\nvar Severe = flow.get(\"SevereAlerts\") ;\n\nfor( i = 0 ; i < msg.payload.alerts.length ; i++ ) {\n    if( msg.payload.alerts[i].severityCode <= 2 ) {\n        Severe.push(msg.payload.alerts[i]) ;\n    }\n}\nflow.set(\"SevereAlerts\", Severe);\n\nif( msg.payload.metadata.next === null ) {\n    return [null, msg, null] ;\n} else {\n    // Get the next chunk of Alerts\n    msg.url = 'https://api.weather.com/v3/alerts/headlines?adminDistrictCode='+msg.admindistrictcode+'&format=json&language=en-US&apiKey='+msg.apikey;\n    msg.url = msg.url + \"&next=\" + msg.payload.metadata.next ;\n\n    return [msg, null, null];\n}",
+        "outputs": 3,
+        "noerr": 0,
+        "x": 390,
+        "y": 700,
+        "wires": [
+            [
+                "9fcd6710.403a38"
+            ],
+            [
+                "c856737c.3d8508"
+            ],
+            [
+                "81c64620.3a57"
+            ]
+        ]
+    },
+    {
+        "id": "9fcd6710.403a38",
+        "type": "http request",
+        "z": "727d366f.1fd3b",
+        "name": "Next Block of Alerts",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": false,
+        "url": "",
+        "tls": "",
+        "proxy": "",
+        "authType": "",
+        "x": 590,
+        "y": 700,
+        "wires": [
+            [
+                "a5ecb7d0.c5597",
+                "10f7d567.dd9853"
+            ]
+        ]
+    },
+    {
+        "id": "10f7d567.dd9853",
+        "type": "debug",
+        "z": "727d366f.1fd3b",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 990,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "c856737c.3d8508",
+        "type": "change",
+        "z": "727d366f.1fd3b",
+        "name": "All Severe Alerts",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "SevereAlerts",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 580,
+        "y": 760,
+        "wires": [
+            [
+                "745b0fc8.2f4a28",
+                "6d197c4c.0d3884",
+                "545c63e7.ce834c"
+            ]
+        ]
+    },
+    {
+        "id": "745b0fc8.2f4a28",
+        "type": "debug",
+        "z": "727d366f.1fd3b",
+        "name": "All Severe",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "SevereAlerts",
+        "targetType": "msg",
+        "x": 990,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "e960f8cc.4b8728",
+        "type": "change",
+        "z": "727d366f.1fd3b",
+        "name": "Default map",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "payload",
+                "pt": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"command\":{\"layer\":\"OSM\",\"lat\":41.2417,\"lon\":-99.3829,\"zoom\":4,\"addtoheatmap\":true,\"autopan\":true,\"clear\":\"OSM\",\"map\":{\"name\":\"OSM\",\"url\":\"http://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png\",\"opt\":{\"MaxZoom\":18,\"attribution\":\"&copy; OpenStreetMap\"}}}}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 610,
+        "y": 920,
+        "wires": [
+            [
+                "a0e723d6.f6fc48"
+            ]
+        ]
+    },
+    {
+        "id": "a0e723d6.f6fc48",
+        "type": "worldmap",
+        "z": "727d366f.1fd3b",
+        "name": "",
+        "lat": "",
+        "lon": "",
+        "zoom": "",
+        "cluster": "",
+        "maxage": "",
+        "hiderightclick": "false",
+        "coords": "none",
+        "path": "alertmap",
+        "x": 980,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "e4b94e5.d118ab",
+        "type": "ui_template",
+        "z": "727d366f.1fd3b",
+        "group": "8483c94.42c1e38",
+        "name": "Embedded Map",
+        "order": 1,
+        "width": "22",
+        "height": "15",
+        "format": "<div ng-bind-html=\"msg.payload | trusted\"></div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 880,
+        "y": 980,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "810fda87.de437",
+        "type": "template",
+        "z": "727d366f.1fd3b",
+        "name": "Add Map to Dashboard",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<iframe src={{{payload.url}}} height=750px width=1150px ></iframe>",
+        "x": 650,
+        "y": 980,
+        "wires": [
+            [
+                "e4b94e5.d118ab"
+            ]
+        ]
+    },
+    {
+        "id": "2712a047.972ef8",
+        "type": "change",
+        "z": "727d366f.1fd3b",
+        "name": "Inject /alertmap",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "payload",
+                "pt": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload.url",
+                "pt": "msg",
+                "to": "\"/alertmap\"",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 420,
+        "y": 980,
+        "wires": [
+            [
+                "810fda87.de437"
+            ]
+        ]
+    },
+    {
+        "id": "62514346.1f93cc",
+        "type": "delay",
+        "z": "727d366f.1fd3b",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 400,
+        "y": 920,
+        "wires": [
+            [
+                "e960f8cc.4b8728"
+            ]
+        ]
+    },
+    {
+        "id": "58132aae.15c48c",
+        "type": "inject",
+        "z": "727d366f.1fd3b",
+        "name": "Init WorldMap",
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "x": 200,
+        "y": 980,
+        "wires": [
+            [
+                "62514346.1f93cc",
+                "2712a047.972ef8"
+            ]
+        ]
+    },
+    {
+        "id": "97585bd4.3585c8",
+        "type": "comment",
+        "z": "727d366f.1fd3b",
+        "name": "One time - Add Map to Dashboard",
+        "info": "",
+        "x": 170,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "d5ffe03.5a308a",
+        "type": "function",
+        "z": "727d366f.1fd3b",
+        "name": "Plot on Map",
+        "func": "msg.payload.lat = msg.payload.latitude;\nmsg.payload.lon = msg.payload.longitude;\nmsg.payload.name = msg.payload.detailKey;\n\n\nmsg.payload.icon = \"globe\";\nif( msg.payload.severityCode > 2 ) {\n    msg.payload.iconColor = \"red\";\n} else {\n    msg.payload.iconColor = \"orange\";\n}\n\nmsg.payload.command = { zoom:6, \n                            \"lat\":msg.payload.lat,\n                            \"lon\":msg.payload.lon,\n                            autopan:true };\n\ndelete msg.payload.latitude;\ndelete msg.payload.longitude;\ndelete msg.payload.type;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 790,
+        "y": 880,
+        "wires": [
+            [
+                "a0e723d6.f6fc48"
+            ]
+        ]
+    },
+    {
+        "id": "6d197c4c.0d3884",
+        "type": "split",
+        "z": "727d366f.1fd3b",
+        "name": "Split / Plot Alerts",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 420,
+        "y": 880,
+        "wires": [
+            [
+                "9dd6b77d.223ed"
+            ]
+        ]
+    },
+    {
+        "id": "13025bab.757784",
+        "type": "switch",
+        "z": "727d366f.1fd3b",
+        "name": "Valid API key?",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "Access Denied",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 180,
+        "y": 220,
+        "wires": [
+            [
+                "a7f01a1f.c5ef1"
+            ],
+            [
+                "6c0974c8.9d7b9c"
+            ]
+        ],
+        "info": "If your API key is invalid for this API call, the response will contain:\n\n<HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;api&#46;weather&#46;com&#47;v3&#47;alerts&#47;headlines&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;4d3c2b17&#46;1573048691&#46;85dab1a\n</BODY>\n</HTML>"
+    },
+    {
+        "id": "f1bf46dd.0b788",
+        "type": "debug",
+        "z": "727d366f.1fd3b",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 810,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "a7f01a1f.c5ef1",
+        "type": "change",
+        "z": "727d366f.1fd3b",
+        "name": "Error API Key access denied",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Access Denied - Your API key does not have permission to access this API",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 460,
+        "y": 220,
+        "wires": [
+            [
+                "f1bf46dd.0b788"
+            ]
+        ]
+    },
+    {
+        "id": "a6b2c4aa.a00ba",
+        "type": "switch",
+        "z": "727d366f.1fd3b",
+        "name": "Valid API key?",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "Access Denied",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 180,
+        "y": 660,
+        "wires": [
+            [
+                "1080bfa8.a06a6"
+            ],
+            [
+                "a5ecb7d0.c5597"
+            ]
+        ],
+        "info": "If your API key is invalid for this API call, the response will contain:\n\n<HTML><HEAD>\n<TITLE>Access Denied</TITLE>\n</HEAD><BODY>\n<H1>Access Denied</H1>\n \nYou don't have permission to access \"http&#58;&#47;&#47;api&#46;weather&#46;com&#47;v3&#47;alerts&#47;headlines&#63;\" on this server.<P>\nReference&#32;&#35;18&#46;4d3c2b17&#46;1573048691&#46;85dab1a\n</BODY>\n</HTML>"
+    },
+    {
+        "id": "1080bfa8.a06a6",
+        "type": "change",
+        "z": "727d366f.1fd3b",
+        "name": "Error API Key access denied",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "Access Denied - Your API key does not have permission to access this API",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 460,
+        "y": 640,
+        "wires": [
+            [
+                "3610e571.255d72"
+            ]
+        ]
+    },
+    {
+        "id": "3610e571.255d72",
+        "type": "debug",
+        "z": "727d366f.1fd3b",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 990,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "f72d3d3e.bc3d88",
+        "type": "link out",
+        "z": "727d366f.1fd3b",
+        "name": "US All Alerts",
+        "links": [
+            "fa338a5a.06991"
+        ],
+        "x": 755,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "fa338a5a.06991",
+        "type": "link in",
+        "z": "727d366f.1fd3b",
+        "name": "Plot All US Alerts",
+        "links": [
+            "f72d3d3e.bc3d88"
+        ],
+        "x": 255,
+        "y": 820,
+        "wires": [
+            [
+                "545c63e7.ce834c",
+                "6d197c4c.0d3884"
+            ]
+        ]
+    },
+    {
+        "id": "22b50502.de5f3a",
+        "type": "ui_dropdown",
+        "z": "727d366f.1fd3b",
+        "name": "",
+        "label": "Select State:",
+        "tooltip": "",
+        "place": "State",
+        "group": "6eaba9c5.b8be18",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "options": [],
+        "payload": "",
+        "topic": "",
+        "x": 570,
+        "y": 480,
+        "wires": [
+            [
+                "b5b2d26c.8d6cb",
+                "fa34b305.664188"
+            ]
+        ]
+    },
+    {
+        "id": "77daef29.443818",
+        "type": "change",
+        "z": "727d366f.1fd3b",
+        "name": "Load States",
+        "rules": [
+            {
+                "t": "set",
+                "p": "junk",
+                "pt": "msg",
+                "to": "[{\"Alaska\":\"AK:US\"},{\"Alabama\":\"AL:US\"},{\"Arkansas\":\"AR:US\"},{\"American Samoa\":\"AS:US\"},{\"Arizona\":\"AZ:US\"},{\"California\":\"CA:US\"},{\"Colorado\":\"CO:US\"},{\"Connecticut\":\"CT:US\"},{\"District of Columbia\":\"DC:US\"},{\"Delaware\":\"DE:US\"},{\"Florida\":\"FL:US\"},{\"Georgia\":\"GA:US\"},{\"Guam\":\"GU:US\"},{\"Hawaii\":\"HI:US\"},{\"Iowa\":\"IA:US\"},{\"Idaho\":\"ID:US\"},{\"Illinois\":\"IL:US\"},{\"Indiana\":\"IN:US\"},{\"Kansas\":\"KS:US\"},{\"Kentucky\":\"KY:US\"},{\"Louisiana\":\"LA:US\"},{\"Massachusetts\":\"MA:US\"},{\"Maryland\":\"MD:US\"},{\"Maine\":\"ME:US\"},{\"Michigan\":\"MI:US\"},{\"Minnesota\":\"MN:US\"},{\"Missouri\":\"MO:US\"},{\"Mississippi\":\"MS:US\"},{\"Montana\":\"MT:US\"},{\"North Carolina\":\"NC:US\"},{\"North Dakota\":\"ND:US\"},{\"Nebraska\":\"NE:US\"},{\"New Hampshire\":\"NH:US\"},{\"New Jersey\":\"NJ:US\"},{\"New Mexico\":\"NM:US\"},{\"Nevada\":\"NV:US\"},{\"New York\":\"NY:US\"},{\"Ohio\":\"OH:US\"},{\"Oklahoma\":\"OK:US\"},{\"Oregon\":\"OR:US\"},{\"Pennsylvania\":\"PA:US\"},{\"Puerto Rico\":\"PR:US\"},{\"Rhode Island\":\"RI:US\"},{\"South Carolina\":\"SC:US\"},{\"South Dakota\":\"SD:US\"},{\"Tennessee\":\"TN:US\"},{\"Texas\":\"TX:US\"},{\"Utah\":\"UT:US\"},{\"Virginia\":\"VA:US\"},{\"Virgin Islands\":\"VI:US\"},{\"Vermont\":\"VT:US\"},{\"Washington\":\"WA:US\"},{\"Wisconsin\":\"WI:US\"},{\"West Virginia\":\"WV:US\"},{\"Wyoming\":\"WY:US\"}]",
+                "tot": "json"
+            },
+            {
+                "t": "set",
+                "p": "options",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "payload",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 330,
+        "y": 440,
+        "wires": [
+            [
+                "dea839a9.89ee58",
+                "22b50502.de5f3a"
+            ]
+        ]
+    },
+    {
+        "id": "dea839a9.89ee58",
+        "type": "debug",
+        "z": "727d366f.1fd3b",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "options",
+        "targetType": "msg",
+        "x": 570,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "cd8ee7d4.39b0c8",
+        "type": "inject",
+        "z": "727d366f.1fd3b",
+        "name": "",
+        "topic": "",
+        "payload": "[{\"Alaska\":\"AK:US\"},{\"Alabama\":\"AL:US\"},{\"Arkansas\":\"AR:US\"},{\"American Samoa\":\"AS:US\"},{\"Arizona\":\"AZ:US\"},{\"California\":\"CA:US\"},{\"Colorado\":\"CO:US\"},{\"Connecticut\":\"CT:US\"},{\"District of Columbia\":\"DC:US\"},{\"Delaware\":\"DE:US\"},{\"Florida\":\"FL:US\"},{\"Georgia\":\"GA:US\"},{\"Guam\":\"GU:US\"},{\"Hawaii\":\"HI:US\"},{\"Iowa\":\"IA:US\"},{\"Idaho\":\"ID:US\"},{\"Illinois\":\"IL:US\"},{\"Indiana\":\"IN:US\"},{\"Kansas\":\"KS:US\"},{\"Kentucky\":\"KY:US\"},{\"Louisiana\":\"LA:US\"},{\"Massachusetts\":\"MA:US\"},{\"Maryland\":\"MD:US\"},{\"Maine\":\"ME:US\"},{\"Michigan\":\"MI:US\"},{\"Minnesota\":\"MN:US\"},{\"Missouri\":\"MO:US\"},{\"Mississippi\":\"MS:US\"},{\"Montana\":\"MT:US\"},{\"North Carolina\":\"NC:US\"},{\"North Dakota\":\"ND:US\"},{\"Nebraska\":\"NE:US\"},{\"New Hampshire\":\"NH:US\"},{\"New Jersey\":\"NJ:US\"},{\"New Mexico\":\"NM:US\"},{\"Nevada\":\"NV:US\"},{\"New York\":\"NY:US\"},{\"Ohio\":\"OH:US\"},{\"Oklahoma\":\"OK:US\"},{\"Oregon\":\"OR:US\"},{\"Pennsylvania\":\"PA:US\"},{\"Puerto Rico\":\"PR:US\"},{\"Rhode Island\":\"RI:US\"},{\"South Carolina\":\"SC:US\"},{\"South Dakota\":\"SD:US\"},{\"Tennessee\":\"TN:US\"},{\"Texas\":\"TX:US\"},{\"Utah\":\"UT:US\"},{\"Virginia\":\"VA:US\"},{\"Virgin Islands\":\"VI:US\"},{\"Vermont\":\"VT:US\"},{\"Washington\":\"WA:US\"},{\"Wisconsin\":\"WI:US\"},{\"West Virginia\":\"WV:US\"},{\"Wyoming\":\"WY:US\"}]",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 150,
+        "y": 440,
+        "wires": [
+            [
+                "77daef29.443818"
+            ]
+        ]
+    },
+    {
+        "id": "b5b2d26c.8d6cb",
+        "type": "debug",
+        "z": "727d366f.1fd3b",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 730,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "fa34b305.664188",
+        "type": "switch",
+        "z": "727d366f.1fd3b",
+        "name": "Which State Selected?",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nnull"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 200,
+        "y": 560,
+        "wires": [
+            [
+                "de3ccf91.9c4ac8"
+            ]
+        ]
+    },
+    {
+        "id": "fb2f8c73.ee71e8",
+        "type": "comment",
+        "z": "727d366f.1fd3b",
+        "name": "Select States - Weather Alerts",
+        "info": "",
+        "x": 200,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "81c64620.3a57",
+        "type": "ui_table",
+        "z": "727d366f.1fd3b",
+        "group": "6eaba9c5.b8be18",
+        "name": "",
+        "order": 3,
+        "width": "10",
+        "height": "13",
+        "columns": [
+            {
+                "field": "severityCode",
+                "title": "Severity",
+                "width": "5%",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "location",
+                "title": "Location",
+                "width": "30%",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "headline",
+                "title": "Headline",
+                "width": "65%",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            }
+        ],
+        "outputs": 1,
+        "cts": true,
+        "x": 970,
+        "y": 840,
+        "wires": [
+            [
+                "5b0167f4.7d9438",
+                "5814b416.56931c",
+                "aee64557.a49f98"
+            ]
+        ]
+    },
+    {
+        "id": "545c63e7.ce834c",
+        "type": "function",
+        "z": "727d366f.1fd3b",
+        "name": "Build Table",
+        "func": "var TableArray = [];\nfor( i=0; i < msg.payload.length; i++ ) {\n      var TableEntry = {};\n      TableEntry.severityCode = msg.payload[i].severityCode ;\n      TableEntry.location = msg.payload[i].areaName ;\n      TableEntry.headline = msg.payload[i].headlineText ;\n      TableEntry.latitude = msg.payload[i].latitude ;\n      TableEntry.longitude = msg.payload[i].longitude ;\n      // node.warn( TableEntry ) ;\n      TableArray.push( TableEntry );\n}\n\nmsg.payload = TableArray;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 790,
+        "y": 820,
+        "wires": [
+            [
+                "e206cfd8.b9563",
+                "81c64620.3a57"
+            ]
+        ]
+    },
+    {
+        "id": "e206cfd8.b9563",
+        "type": "debug",
+        "z": "727d366f.1fd3b",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 990,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "5b0167f4.7d9438",
+        "type": "debug",
+        "z": "727d366f.1fd3b",
+        "name": "onClick",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 1200,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "5814b416.56931c",
+        "type": "change",
+        "z": "727d366f.1fd3b",
+        "name": "Zoom Map on Click",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "tmp",
+                "tot": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "payload",
+                "pt": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload.command",
+                "pt": "msg",
+                "to": "{\"zoom\":10,\"autopan\":true}",
+                "tot": "json"
+            },
+            {
+                "t": "set",
+                "p": "payload.command.lat",
+                "pt": "msg",
+                "to": "tmp.latitude",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload.command.lon",
+                "pt": "msg",
+                "to": "tmp.longitude",
+                "tot": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "tmp",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1230,
+        "y": 880,
+        "wires": [
+            [
+                "a0e723d6.f6fc48"
+            ]
+        ],
+        "info": "Essentially create this:\n\nmsg.payload.command = { zoom:6, \n                        \"lat\":msg.payload.latitude,\n                        \"lon\":msg.payload.longitude\n                        autopan:true };"
+    },
+    {
+        "id": "12a9c3fd.121b14",
+        "type": "ui_button",
+        "z": "727d366f.1fd3b",
+        "name": "",
+        "group": "6eaba9c5.b8be18",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Show all US Severe Weather Alerts",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "",
+        "x": 220,
+        "y": 120,
+        "wires": [
+            [
+                "628c5fe.10653a"
+            ]
+        ]
+    },
+    {
+        "id": "aee64557.a49f98",
+        "type": "ui_text",
+        "z": "727d366f.1fd3b",
+        "group": "8483c94.42c1e38",
+        "order": 2,
+        "width": "22",
+        "height": "1",
+        "name": "Headline",
+        "label": "",
+        "format": "{{msg.payload.headline}}",
+        "layout": "row-left",
+        "x": 1200,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "9dd6b77d.223ed",
+        "type": "delay",
+        "z": "727d366f.1fd3b",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "20",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 620,
+        "y": 880,
+        "wires": [
+            [
+                "d5ffe03.5a308a"
+            ]
+        ]
+    },
+    {
+        "id": "a3e603c7.3ea1a8",
+        "type": "change",
+        "z": "727d366f.1fd3b",
+        "name": "Set TWC API Key here",
+        "rules": [
+            {
+                "t": "set",
+                "p": "twcapikey",
+                "pt": "flow",
+                "to": "<Paste your TWC API Key here>",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 480,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3f751ab2.37f3ae",
+        "type": "inject",
+        "z": "727d366f.1fd3b",
+        "name": "Init TWC API Key",
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 190,
+        "y": 40,
+        "wires": [
+            [
+                "a3e603c7.3ea1a8"
+            ]
+        ]
+    },
+    {
+        "id": "8483c94.42c1e38",
+        "type": "ui_group",
+        "z": "",
+        "name": "Alert Map",
+        "tab": "af2eb5ba.b61b",
+        "order": 2,
+        "disp": true,
+        "width": "22",
+        "collapse": false
+    },
+    {
+        "id": "6eaba9c5.b8be18",
+        "type": "ui_group",
+        "z": "",
+        "name": "Get Alerts",
+        "tab": "af2eb5ba.b61b",
+        "order": 1,
+        "disp": true,
+        "width": "10",
+        "collapse": false
+    },
+    {
+        "id": "af2eb5ba.b61b",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Severe Weather Alert Headlines",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
