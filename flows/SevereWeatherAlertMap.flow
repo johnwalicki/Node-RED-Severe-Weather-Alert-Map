@@ -461,7 +461,7 @@
         "maxage": "",
         "hiderightclick": "false",
         "coords": "none",
-        "path": "alertmap",
+        "path": "/alertmap",
         "x": 980,
         "y": 920,
         "wires": []

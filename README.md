@@ -1,10 +1,11 @@
 # Node-RED Severe Weather Alert Map
-Severe Weather Alert Map Node-RED Dashboard using The Weather Company APIs
+Build a Severe Weather Alert Map Node-RED Dashboard using The Weather Company APIs
 
-Use [The Weather Company](https://weather.com/) APIs to plot all of the current Severe Weather Alerts issued by the [National Weather Service](https://www.weather.gov/alerts) on a [Node-RED](https://nodered.org) Dashboard
+Use [The Weather Company APIs](https://business.weather.com/products/weather-data-packages) to plot all of the current [Severe Weather Alerts](https://business.weather.com/resource/brochure-the-weather-company-data-package-severe-weather) issued by the [National Weather Service](https://www.weather.gov/alerts) on a [Node-RED](https://nodered.org) Dashboard
 
 This example flow and Node-RED Dashboard might be useful as part of a [Call for Code](https://developer.ibm.com/callforcode/) solution. The Call for Code 2020 theme is to help reverse the impact of Climate Change.
 
+Create additional Node-RED flows using the [node-red-contrib-twc-weather](https://flows.nodered.org/node/node-red-contrib-twc-weather) package.
 
 ### Prerequistes
 
