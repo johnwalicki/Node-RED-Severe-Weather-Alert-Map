@@ -10,6 +10,7 @@ Create additional Node-RED flows using the [node-red-contrib-twc-weather](https:
 ### Prerequistes
 
 - [Install Node-RED](https://nodered.org/docs/getting-started/) on your system or in the cloud
+- This flow requires Node-RED v1.1 or higher
 - [Add the following nodes](https://nodered.org/docs/user-guide/runtime/adding-nodes) to your Node-RED palette
   - [node-red-dashboard](https://flows.nodered.org/node/node-red-dashboard)
   - [node-red-node-ui-table](https://flows.nodered.org/node/node-red-node-ui-table)
