@@ -1,9 +1,9 @@
 # Node-RED Severe Weather Alert Map
 Build a Severe Weather Alert Map Node-RED Dashboard using The Weather Company APIs
 
-Use [The Weather Company APIs](https://business.weather.com/products/weather-data-packages) to plot all of the current [Severe Weather Alerts](https://business.weather.com/resource/brochure-the-weather-company-data-package-severe-weather) issued by the [National Weather Service](https://www.weather.gov/alerts) on a [Node-RED](https://nodered.org) Dashboard
+Use [The Weather Company APIs](https://www.ibm.com/products/weather-company-data-packages) to plot all of the current [Severe Weather Alerts](https://www.ibm.com/downloads/cas/XZWZ9K1V) issued by the [National Weather Service](https://www.weather.gov/alerts) on a [Node-RED](https://nodered.org) Dashboard
 
-This example flow and Node-RED Dashboard might be useful as part of a [Call for Code](https://developer.ibm.com/callforcode/) solution. The Call for Code 2020 theme is to help reverse the impact of Climate Change.
+This example flow and Node-RED Dashboard might be useful as part of a [Call for Code](https://developer.ibm.com/callforcode/) solution. The Call for Code 2021 theme is to help reverse the impact of Climate Change.
 
 Create additional Node-RED flows using the [node-red-contrib-twc-weather](https://flows.nodered.org/node/node-red-contrib-twc-weather) package.
 
@@ -15,7 +15,9 @@ Create additional Node-RED flows using the [node-red-contrib-twc-weather](https:
   - [node-red-dashboard](https://flows.nodered.org/node/node-red-dashboard)
   - [node-red-node-ui-table](https://flows.nodered.org/node/node-red-node-ui-table)
   - [node-red-contrib-web-worldmap](https://flows.nodered.org/node/node-red-contrib-web-worldmap)
-- If you are participating in the [2020 Call for Code](https://developer.ibm.com/callforcode/) you can [register](https://callforcode.weather.com/) for a time limited TWC API key.
+- If you are participating in the [2021 Call for Code](https://developer.ibm.com/callforcode/) you can [register](https://developer.ibm.com/callforcode/tools/weather/) for a time limited TWC API key.
+- Learn more about the TWC APIs used in this Node-RED flow by reading the [TWC Severe Weather API documentation](https://ibm.co/v3WAHa)
+
 
 ## Node-RED flow in this repository:
 ---
