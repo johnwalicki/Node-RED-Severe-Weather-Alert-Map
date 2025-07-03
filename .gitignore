@@ -1,0 +1,5 @@
+# Ignore backup files
+*.backup
+
+# Ignore flow credentials
+flows_cred.json
