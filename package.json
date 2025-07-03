@@ -1,0 +1,27 @@
+{
+    "name": "Node-RED-Severe-Weather-Alert-Map",
+    "description": "Severe Weather Alert Map Node-RED Dashboard using The Weather Company APIs",
+    "version": "1.0.0",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/johnwalicki/Node-RED-Severe-Weather-Alert-Map.git"
+    },
+    "keywords": [
+        "node-red",
+        "weather",
+        "twc"
+    ],
+    "author": "John Walicki <johnwalicki@gmail.com>",
+    "license": "Apache-2.0",
+    "dependencies": {
+        "node-red-contrib-web-worldmap": "5.1.6",
+        "node-red-dashboard": "3.6.5",
+        "node-red-node-ui-table": "0.4.4"
+    },
+    "node-red": {
+        "settings": {
+            "flowFile": "flows/SevereWeatherAlertMap.flow",
+            "credentialsFile": "flows_cred.json"
+        }
+    }
+}
