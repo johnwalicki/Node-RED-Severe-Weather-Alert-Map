@@ -98,6 +98,132 @@
         "h": 262
     },
     {
+        "id": "9442c142.ca786",
+        "type": "ui_tab",
+        "name": "JW Severe Weather Alerts",
+        "icon": "dashboard",
+        "order": 3,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "7dc3676a.bf9a2",
+        "type": "ui_group",
+        "name": "Get Alerts",
+        "tab": "9442c142.ca786",
+        "order": 1,
+        "disp": true,
+        "width": "10",
+        "collapse": false
+    },
+    {
+        "id": "63f14cc0.8e50ac",
+        "type": "ui_group",
+        "name": "Alert Map",
+        "tab": "9442c142.ca786",
+        "order": 2,
+        "disp": true,
+        "width": "25",
+        "collapse": false
+    },
+    {
+        "id": "2631fcbebdfd4cb7",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
         "id": "2a7d90e4.a26148",
         "type": "http request",
         "z": "b0d77440.c78c6",
@@ -456,32 +582,6 @@
         ]
     },
     {
-        "id": "46d0011f.381d78",
-        "type": "ui_dropdown",
-        "z": "b0d77440.c78c6",
-        "g": "81bc078f.3bd658",
-        "name": "",
-        "label": "Select State:",
-        "tooltip": "",
-        "place": "State",
-        "group": "7dc3676a.bf9a2",
-        "order": 2,
-        "width": 0,
-        "height": 0,
-        "passthru": true,
-        "options": [],
-        "payload": "",
-        "topic": "",
-        "x": 410,
-        "y": 180,
-        "wires": [
-            [
-                "36ba3da4.9b5dc2",
-                "2fd19364.418464"
-            ]
-        ]
-    },
-    {
         "id": "e410e25a.b5f61",
         "type": "debug",
         "z": "b0d77440.c78c6",
@@ -562,60 +662,6 @@
         "wires": [
             [
                 "7fe65c39.69bb04"
-            ]
-        ]
-    },
-    {
-        "id": "e691defe.a135c8",
-        "type": "ui_table",
-        "z": "b0d77440.c78c6",
-        "g": "5cafe19.1a484a",
-        "group": "7dc3676a.bf9a2",
-        "name": "",
-        "order": 3,
-        "width": "10",
-        "height": "13",
-        "columns": [
-            {
-                "field": "severityCode",
-                "title": "Severity",
-                "width": "5%",
-                "align": "left",
-                "formatter": "plaintext",
-                "formatterParams": {
-                    "target": "_blank"
-                }
-            },
-            {
-                "field": "location",
-                "title": "Location",
-                "width": "30%",
-                "align": "left",
-                "formatter": "plaintext",
-                "formatterParams": {
-                    "target": "_blank"
-                }
-            },
-            {
-                "field": "headline",
-                "title": "Headline",
-                "width": "65%",
-                "align": "left",
-                "formatter": "plaintext",
-                "formatterParams": {
-                    "target": "_blank"
-                }
-            }
-        ],
-        "outputs": 1,
-        "cts": true,
-        "x": 470,
-        "y": 840,
-        "wires": [
-            [
-                "cffd83f8.ff2148",
-                "3333e78d.ee5458",
-                "6b482af9.f6ba94"
             ]
         ]
     },
@@ -729,50 +775,6 @@
         "info": "Essentially create this:\n\nmsg.payload.command = { zoom:6, \n                        \"lat\":msg.payload.latitude,\n                        \"lon\":msg.payload.longitude\n                        autopan:true };"
     },
     {
-        "id": "654003d3.9c16b4",
-        "type": "ui_button",
-        "z": "b0d77440.c78c6",
-        "g": "81bc078f.3bd658",
-        "name": "",
-        "group": "7dc3676a.bf9a2",
-        "order": 1,
-        "width": 0,
-        "height": 0,
-        "passthru": false,
-        "label": "Show all US Severe Weather Alerts",
-        "tooltip": "",
-        "color": "",
-        "bgcolor": "",
-        "icon": "",
-        "payload": "",
-        "payloadType": "str",
-        "topic": "",
-        "x": 200,
-        "y": 280,
-        "wires": [
-            [
-                "29fb9bf.1a3a4e4"
-            ]
-        ]
-    },
-    {
-        "id": "6b482af9.f6ba94",
-        "type": "ui_text",
-        "z": "b0d77440.c78c6",
-        "g": "5cafe19.1a484a",
-        "group": "63f14cc0.8e50ac",
-        "order": 1,
-        "width": "22",
-        "height": "1",
-        "name": "Headline",
-        "label": "",
-        "format": "{{msg.payload.headline}}",
-        "layout": "row-left",
-        "x": 700,
-        "y": 800,
-        "wires": []
-    },
-    {
         "id": "e8ddf05c.366b8",
         "type": "change",
         "z": "b0d77440.c78c6",
@@ -879,6 +881,128 @@
         ]
     },
     {
+        "id": "29fb9bf.1a3a4e4",
+        "type": "change",
+        "z": "b0d77440.c78c6",
+        "g": "81bc078f.3bd658",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "AllStates",
+                "pt": "flow",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 470,
+        "y": 280,
+        "wires": [
+            [
+                "7c02eacd.d7c1d4"
+            ]
+        ]
+    },
+    {
+        "id": "7c07364b.3e9ff8",
+        "type": "change",
+        "z": "b0d77440.c78c6",
+        "g": "81bc078f.3bd658",
+        "name": "Save Severity",
+        "rules": [
+            {
+                "t": "set",
+                "p": "severityCode",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"command\":{\"clear\":\"AlertMap\"}}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 460,
+        "y": 320,
+        "wires": [
+            [
+                "7c02eacd.d7c1d4",
+                "aa048cab.15e788"
+            ]
+        ]
+    },
+    {
+        "id": "654003d3.9c16b4",
+        "type": "ui_button",
+        "z": "b0d77440.c78c6",
+        "g": "81bc078f.3bd658",
+        "name": "",
+        "group": "7dc3676a.bf9a2",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Show all US Severe Weather Alerts",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 200,
+        "y": 280,
+        "wires": [
+            [
+                "29fb9bf.1a3a4e4"
+            ]
+        ]
+    },
+    {
+        "id": "46d0011f.381d78",
+        "type": "ui_dropdown",
+        "z": "b0d77440.c78c6",
+        "g": "81bc078f.3bd658",
+        "name": "",
+        "label": "Select State:",
+        "tooltip": "",
+        "place": "State",
+        "group": "7dc3676a.bf9a2",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "multiple": false,
+        "options": [],
+        "payload": "",
+        "topic": "",
+        "topicType": "str",
+        "className": "",
+        "x": 410,
+        "y": 180,
+        "wires": [
+            [
+                "36ba3da4.9b5dc2",
+                "2fd19364.418464"
+            ]
+        ]
+    },
+    {
         "id": "b8ba4382.57c7a8",
         "type": "ui_dropdown",
         "z": "b0d77440.c78c6",
@@ -927,6 +1051,8 @@
         ],
         "payload": "",
         "topic": "",
+        "topicType": "str",
+        "className": "",
         "x": 140,
         "y": 320,
         "wires": [
@@ -936,32 +1062,26 @@
         ]
     },
     {
-        "id": "29fb9bf.1a3a4e4",
-        "type": "change",
+        "id": "6b482af9.f6ba94",
+        "type": "ui_text",
         "z": "b0d77440.c78c6",
-        "g": "81bc078f.3bd658",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "AllStates",
-                "pt": "flow",
-                "to": "true",
-                "tot": "bool"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 470,
-        "y": 280,
-        "wires": [
-            [
-                "7c02eacd.d7c1d4"
-            ]
-        ]
+        "g": "5cafe19.1a484a",
+        "group": "63f14cc0.8e50ac",
+        "order": 1,
+        "width": "22",
+        "height": "1",
+        "name": "Headline",
+        "label": "",
+        "format": "{{msg.payload.headline}}",
+        "layout": "row-left",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 700,
+        "y": 800,
+        "wires": []
     },
     {
         "id": "aa048cab.15e788",
@@ -993,71 +1113,57 @@
         "wires": []
     },
     {
-        "id": "7c07364b.3e9ff8",
-        "type": "change",
+        "id": "e691defe.a135c8",
+        "type": "ui_table",
         "z": "b0d77440.c78c6",
-        "g": "81bc078f.3bd658",
-        "name": "Save Severity",
-        "rules": [
+        "g": "5cafe19.1a484a",
+        "group": "7dc3676a.bf9a2",
+        "name": "",
+        "order": 3,
+        "width": "10",
+        "height": "13",
+        "columns": [
             {
-                "t": "set",
-                "p": "severityCode",
-                "pt": "flow",
-                "to": "payload",
-                "tot": "msg"
+                "field": "severityCode",
+                "title": "Severity",
+                "width": "5%",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
             },
             {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "{\"command\":{\"clear\":\"AlertMap\"}}",
-                "tot": "json"
+                "field": "location",
+                "title": "Location",
+                "width": "30%",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "headline",
+                "title": "Headline",
+                "width": "65%",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
             }
         ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 460,
-        "y": 320,
+        "outputs": 1,
+        "cts": true,
+        "x": 470,
+        "y": 840,
         "wires": [
             [
-                "7c02eacd.d7c1d4",
-                "aa048cab.15e788"
+                "cffd83f8.ff2148",
+                "3333e78d.ee5458",
+                "6b482af9.f6ba94"
             ]
         ]
-    },
-    {
-        "id": "7dc3676a.bf9a2",
-        "type": "ui_group",
-        "z": "",
-        "name": "Get Alerts",
-        "tab": "9442c142.ca786",
-        "order": 1,
-        "disp": true,
-        "width": "10",
-        "collapse": false
-    },
-    {
-        "id": "63f14cc0.8e50ac",
-        "type": "ui_group",
-        "z": "",
-        "name": "Alert Map",
-        "tab": "9442c142.ca786",
-        "order": 2,
-        "disp": true,
-        "width": "25",
-        "collapse": false
-    },
-    {
-        "id": "9442c142.ca786",
-        "type": "ui_tab",
-        "z": "",
-        "name": "JW Severe Weather Alerts",
-        "icon": "dashboard",
-        "order": 3,
-        "disabled": false,
-        "hidden": false
     }
 ]
